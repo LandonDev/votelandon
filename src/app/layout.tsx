@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Vote Landon Hale for MTSU Esports President",
     description: "A comprehensive plan to elevate MTSU Esports through improved organization, expanded opportunities, and enhanced member experiences.",
-    images: [{ url: '/landon.jpg', width: 1200, height: 630, alt: 'Landon Hale' }],
+    images: [{ url: 'https://votelandon.info/landon.jpg', width: 1200, height: 630, alt: 'Landon Hale' }],
   },
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
