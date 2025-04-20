@@ -132,11 +132,11 @@ export default function Home() {
           </div>
           
           {/* Team members in small display - fixed layout for mobile */}
-          <div className="mb-6 flex flex-wrap justify-center gap-1 sm:mb-10 sm:gap-3">
+          <div className="mb-6 flex w-full justify-center gap-1 sm:mb-10 sm:gap-3">
             {teamMembers.map((member) => (
               <div 
                 key={member.id}
-                className="flex w-full cursor-pointer flex-col items-center overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-2 text-center backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 sm:p-3 sm:w-[30%] mb-1"
+                className="flex w-[32%] cursor-pointer flex-col items-center overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-2 text-center backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 sm:p-3 sm:w-[30%]"
                 onClick={() => openModal(member)}
               >
                 <div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-indigo-500/30 sm:h-20 sm:w-20">
@@ -153,7 +153,7 @@ export default function Home() {
             ))}
           </div>
           
-          {/* Three BIG square buttons with subtle animations */}
+          {/* Three BIG square buttons with animations */}
           <div className="flex w-full max-w-md flex-col gap-2 px-2 sm:flex-row sm:gap-4 sm:px-0">
             <motion.a 
               href="#plan" 
@@ -161,12 +161,18 @@ export default function Home() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               animate={{
-                boxShadow: ["0px 0px 0px rgba(99, 102, 241, 0.2)", "0px 0px 15px rgba(99, 102, 241, 0.4)", "0px 0px 0px rgba(99, 102, 241, 0.2)"]
+                boxShadow: ["0px 0px 0px rgba(99, 102, 241, 0.2)", "0px 0px 15px rgba(99, 102, 241, 0.4)", "0px 0px 0px rgba(99, 102, 241, 0.2)"],
+                y: [0, -3, 0]
               }}
               transition={{
                 boxShadow: {
                   repeat: Infinity,
                   duration: 2
+                },
+                y: {
+                  repeat: Infinity,
+                  duration: 3,
+                  ease: "easeInOut"
                 }
               }}
             >
@@ -181,12 +187,18 @@ export default function Home() {
               disabled
               className="flex-1 cursor-not-allowed rounded-xl bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-2 text-center text-sm font-medium text-gray-400 backdrop-blur-sm shadow-inner sm:aspect-square sm:p-5 sm:text-xl"
               animate={{
-                opacity: [0.8, 0.9, 0.8]
+                opacity: [0.8, 0.9, 0.8],
+                scale: [1, 1.02, 1]
               }}
               transition={{
                 opacity: {
                   repeat: Infinity,
                   duration: 2
+                },
+                scale: {
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: "easeInOut"
                 }
               }}
             >
@@ -203,12 +215,24 @@ export default function Home() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               animate={{
-                boxShadow: ["0px 0px 0px rgba(168, 85, 247, 0.2)", "0px 0px 15px rgba(168, 85, 247, 0.4)", "0px 0px 0px rgba(168, 85, 247, 0.2)"]
+                boxShadow: ["0px 0px 0px rgba(168, 85, 247, 0.2)", "0px 0px 15px rgba(168, 85, 247, 0.4)", "0px 0px 0px rgba(168, 85, 247, 0.2)"],
+                y: [0, -3, 0],
+                rotate: [0, 0.5, 0, -0.5, 0]
               }}
               transition={{
                 boxShadow: {
                   repeat: Infinity,
                   duration: 2
+                },
+                y: {
+                  repeat: Infinity,
+                  duration: 3.5,
+                  ease: "easeInOut"
+                },
+                rotate: {
+                  repeat: Infinity,
+                  duration: 5,
+                  ease: "easeInOut"
                 }
               }}
             >
