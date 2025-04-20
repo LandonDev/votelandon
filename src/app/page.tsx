@@ -68,13 +68,13 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 via-indigo-950 to-slate-900 text-white">
       {/* Hero Section with Landon's image */}
-      <section className="relative h-screen overflow-hidden bg-gradient-to-b from-black to-indigo-950/30">
+      <section className="relative h-[90vh] md:h-screen overflow-hidden bg-gradient-to-b from-black to-indigo-950/30">
         {/* Background gradient only (no image) */}
         
         <div className="container relative z-10 mx-auto flex h-full flex-col items-center justify-center px-4">
           {/* Landon's image and title */}
           <div className="mb-4 flex flex-col items-center text-center">
-            <div className="mb-6 h-40 w-40 overflow-hidden rounded-full border-4 border-indigo-500/50 shadow-lg shadow-indigo-500/20 sm:h-56 sm:w-56">
+            <div className="mb-4 h-28 w-28 overflow-hidden rounded-full border-4 border-indigo-500/50 shadow-lg shadow-indigo-500/20 sm:mb-6 sm:h-56 sm:w-56">
               <Image
                 src="/landon.jpg"
                 alt="Landon Hale"
@@ -83,19 +83,19 @@ export default function Home() {
                 className="h-full w-full object-cover"
               />
             </div>
-            <h1 className="mb-2 text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
+            <h1 className="mb-1 text-3xl font-extrabold text-white sm:mb-2 sm:text-5xl md:text-6xl">
               Vote <span className="text-indigo-400">Landon Hale</span>
             </h1>
-            <h2 className="mb-4 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+            <h2 className="mb-2 text-xl font-bold text-white sm:mb-4 sm:text-3xl md:text-4xl">
               for President
             </h2>
-            <p className="mb-2 text-lg text-gray-300 sm:text-xl md:text-2xl">
+            <p className="mb-2 text-base text-gray-300 sm:text-xl md:text-2xl">
               to transform MTSU Esports
             </p>
             
             {/* Moved bouncing scroll indicator below the text */}
             <motion.div 
-              className="mb-8 flex flex-col items-center"
+              className="mb-4 flex flex-col items-center sm:mb-8"
               initial={{ opacity: 0, y: -10 }}
               animate={{ 
                 opacity: scrollPosition > 100 ? 0 : 1, 
@@ -115,7 +115,7 @@ export default function Home() {
                 Scroll to see my plan
               </motion.p>
               <motion.svg 
-                className="h-5 w-5 text-indigo-400" 
+                className="h-4 w-4 text-indigo-400 sm:h-5 sm:w-5" 
                 fill="none" 
                 viewBox="0 0 24 24" 
                 stroke="currentColor"
@@ -132,14 +132,14 @@ export default function Home() {
           </div>
           
           {/* Team members in small display - fixed layout for mobile */}
-          <div className="mb-10 flex flex-wrap justify-center gap-2 sm:gap-3">
+          <div className="mb-6 flex flex-wrap justify-center gap-1 sm:mb-10 sm:gap-3">
             {teamMembers.map((member) => (
               <div 
                 key={member.id}
-                className="flex w-[30%] cursor-pointer flex-col items-center overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-2 text-center backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 sm:p-3 sm:w-auto"
+                className="flex w-[30%] cursor-pointer flex-col items-center overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-1 text-center backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 sm:p-3 sm:w-auto"
                 onClick={() => openModal(member)}
               >
-                <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-indigo-500/30 sm:h-20 sm:w-20">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-indigo-500/30 sm:h-20 sm:w-20">
                   <Image
                     src={member.avatarUrl}
                     alt={member.name}
@@ -147,20 +147,20 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <p className="mt-1 text-xs font-bold text-white sm:text-sm">{member.name}</p>
-                <p className="text-xs text-indigo-300">{member.role}</p>
+                <p className="mt-1 text-[10px] font-bold text-white sm:text-sm">{member.name}</p>
+                <p className="text-[8px] text-indigo-300 sm:text-xs">{member.role}</p>
               </div>
             ))}
           </div>
           
           {/* Three BIG square buttons */}
-          <div className="flex w-full max-w-md flex-col gap-4 px-4 sm:flex-row sm:px-0">
+          <div className="flex w-full max-w-md flex-col gap-2 px-2 sm:flex-row sm:gap-4 sm:px-0">
             <a 
               href="#plan" 
-              className="flex-1 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 p-4 text-center text-lg font-medium text-white shadow-md shadow-indigo-500/10 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 sm:aspect-square sm:p-5 sm:text-xl"
+              className="flex-1 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 p-2 text-center text-sm font-medium text-white shadow-md shadow-indigo-500/10 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 sm:aspect-square sm:p-5 sm:text-xl"
             >
               <div className="flex h-full flex-col items-center justify-center">
-                <svg className="mb-1 h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
                 See the Plan
@@ -168,22 +168,22 @@ export default function Home() {
             </a>
             <button 
               disabled
-              className="flex-1 cursor-not-allowed rounded-xl bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-4 text-center text-lg font-medium text-gray-400 backdrop-blur-sm shadow-inner sm:aspect-square sm:p-5 sm:text-xl"
+              className="flex-1 cursor-not-allowed rounded-xl bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-2 text-center text-sm font-medium text-gray-400 backdrop-blur-sm shadow-inner sm:aspect-square sm:p-5 sm:text-xl"
             >
               <div className="flex h-full flex-col items-center justify-center">
-                <svg className="mb-1 h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
                 Vote Now
-                <span className="mt-1 text-xs">Voting opens Monday</span>
+                <span className="mt-0.5 text-[10px] sm:mt-1 sm:text-xs">Voting opens Monday</span>
               </div>
             </button>
-            <Link 
+            <Link
               href="/about"
-              className="flex-1 rounded-xl bg-gradient-to-br from-purple-600 to-purple-800 p-4 text-center text-lg font-medium text-white shadow-md shadow-purple-500/10 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20 sm:aspect-square sm:p-5 sm:text-xl"
+              className="flex-1 rounded-xl bg-gradient-to-br from-purple-600 to-purple-800 p-2 text-center text-sm font-medium text-white shadow-md shadow-purple-500/10 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20 sm:aspect-square sm:p-5 sm:text-xl"
             >
               <div className="flex h-full flex-col items-center justify-center">
-                <svg className="mb-1 h-8 w-8 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
                 About Me
@@ -336,18 +336,18 @@ export default function Home() {
       </section>
 
       {/* Footer CTA - Changed to Vote Now button */}
-      <section id="join" className="bg-gradient-to-t from-indigo-900/20 to-transparent py-16">
+      <section id="join" className="bg-gradient-to-t from-indigo-900/20 to-transparent py-8 sm:py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="mb-6 text-3xl font-bold text-white">Join Our Movement</h2>
-          <p className="mx-auto mb-8 max-w-2xl text-gray-300">
+          <h2 className="mb-4 text-2xl font-bold text-white sm:mb-6 sm:text-3xl">Join Our Movement</h2>
+          <p className="mx-auto mb-6 max-w-2xl text-gray-300 sm:mb-8">
             We're building the future of MTSU Esports together. Get involved and help us create the gaming community you want to see.
           </p>
           <button 
             disabled
-            className="inline-block cursor-not-allowed rounded-xl bg-gradient-to-r from-indigo-600/60 to-indigo-700/60 px-8 py-4 text-lg font-medium text-gray-300 shadow-md"
+            className="inline-block cursor-not-allowed rounded-xl bg-gradient-to-r from-indigo-600/60 to-indigo-700/60 px-6 py-3 text-base font-medium text-gray-300 shadow-md sm:px-8 sm:py-4 sm:text-lg"
           >
             Vote Now
-            <span className="block text-sm mt-1">Voting opens Monday</span>
+            <span className="block mt-0.5 text-xs sm:mt-1 sm:text-sm">Voting opens Monday</span>
           </button>
         </div>
       </section>
