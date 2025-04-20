@@ -246,27 +246,6 @@ export default function Home() {
                 </div>
               </Link>
             </motion.div>
-            
-            {/* Animated outline that moves between buttons */}
-            <motion.div 
-              className="absolute inset-0 hidden sm:block rounded-xl z-10 pointer-events-none"
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: [0, 1, 1, 0],
-                outline: "2px solid rgba(255, 255, 255, 0.7)",
-                outlineOffset: "5px",
-                left: ["0%", "0%", "0%", "0%", "33.33%", "33.33%", "33.33%", "33.33%", "66.66%", "66.66%", "66.66%", "66.66%", "0%"],
-                width: "33.33%"
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-              style={{
-                mixBlendMode: "overlay"
-              }}
-            />
           </div>
         </div>
       </section>
