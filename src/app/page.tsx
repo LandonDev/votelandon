@@ -136,10 +136,10 @@ export default function Home() {
             {teamMembers.map((member) => (
               <div 
                 key={member.id}
-                className="flex w-[30%] cursor-pointer flex-col items-center overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-1 text-center backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 sm:p-3 sm:w-auto"
+                className="flex w-full cursor-pointer flex-col items-center overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-2 text-center backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 sm:p-3 sm:w-[30%] mb-1"
                 onClick={() => openModal(member)}
               >
-                <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-indigo-500/30 sm:h-20 sm:w-20">
+                <div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-indigo-500/30 sm:h-20 sm:w-20">
                   <Image
                     src={member.avatarUrl}
                     alt={member.name}
@@ -147,17 +147,28 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <p className="mt-1 text-[10px] font-bold text-white sm:text-sm">{member.name}</p>
-                <p className="text-[8px] text-indigo-300 sm:text-xs">{member.role}</p>
+                <p className="mt-1 text-xs font-bold text-white sm:text-sm">{member.name}</p>
+                <p className="text-[10px] text-indigo-300 sm:text-xs">{member.role}</p>
               </div>
             ))}
           </div>
           
-          {/* Three BIG square buttons */}
+          {/* Three BIG square buttons with subtle animations */}
           <div className="flex w-full max-w-md flex-col gap-2 px-2 sm:flex-row sm:gap-4 sm:px-0">
-            <a 
+            <motion.a 
               href="#plan" 
               className="flex-1 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 p-2 text-center text-sm font-medium text-white shadow-md shadow-indigo-500/10 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 sm:aspect-square sm:p-5 sm:text-xl"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              animate={{
+                boxShadow: ["0px 0px 0px rgba(99, 102, 241, 0.2)", "0px 0px 15px rgba(99, 102, 241, 0.4)", "0px 0px 0px rgba(99, 102, 241, 0.2)"]
+              }}
+              transition={{
+                boxShadow: {
+                  repeat: Infinity,
+                  duration: 2
+                }
+              }}
             >
               <div className="flex h-full flex-col items-center justify-center">
                 <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -165,10 +176,19 @@ export default function Home() {
                 </svg>
                 See the Plan
               </div>
-            </a>
-            <button 
+            </motion.a>
+            <motion.button 
               disabled
               className="flex-1 cursor-not-allowed rounded-xl bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-2 text-center text-sm font-medium text-gray-400 backdrop-blur-sm shadow-inner sm:aspect-square sm:p-5 sm:text-xl"
+              animate={{
+                opacity: [0.8, 0.9, 0.8]
+              }}
+              transition={{
+                opacity: {
+                  repeat: Infinity,
+                  duration: 2
+                }
+              }}
             >
               <div className="flex h-full flex-col items-center justify-center">
                 <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -177,18 +197,33 @@ export default function Home() {
                 Vote Now
                 <span className="mt-0.5 text-[10px] sm:mt-1 sm:text-xs">Voting opens Monday</span>
               </div>
-            </button>
-            <Link
-              href="/about"
-              className="flex-1 rounded-xl bg-gradient-to-br from-purple-600 to-purple-800 p-2 text-center text-sm font-medium text-white shadow-md shadow-purple-500/10 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20 sm:aspect-square sm:p-5 sm:text-xl"
+            </motion.button>
+            <motion.div
+              className="flex-1"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              animate={{
+                boxShadow: ["0px 0px 0px rgba(168, 85, 247, 0.2)", "0px 0px 15px rgba(168, 85, 247, 0.4)", "0px 0px 0px rgba(168, 85, 247, 0.2)"]
+              }}
+              transition={{
+                boxShadow: {
+                  repeat: Infinity,
+                  duration: 2
+                }
+              }}
             >
-              <div className="flex h-full flex-col items-center justify-center">
-                <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                About Me
-              </div>
-            </Link>
+              <Link
+                href="/about"
+                className="flex h-full w-full rounded-xl bg-gradient-to-br from-purple-600 to-purple-800 p-2 text-center text-sm font-medium text-white shadow-md shadow-purple-500/10 sm:aspect-square sm:p-5 sm:text-xl"
+              >
+                <div className="flex h-full w-full flex-col items-center justify-center">
+                  <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  About Me
+                </div>
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
