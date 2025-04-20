@@ -9,14 +9,17 @@ import { TRPCReactProvider } from "~/trpc/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// Get the base URL from environment variables, with custom domain prioritized
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+
 export const metadata: Metadata = {
   title: "Vote Landon Hale for MTSU Esports President",
   description: "A comprehensive plan to elevate MTSU Esports through improved organization, expanded opportunities, and enhanced member experiences.",
-  metadataBase: new URL(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'),
+  metadataBase: new URL(baseUrl),
   openGraph: {
     title: "Vote Landon Hale for MTSU Esports President",
     description: "A comprehensive plan to elevate MTSU Esports through improved organization, expanded opportunities, and enhanced member experiences.",
-    images: [{ url: 'https://votelandon.info/landon.jpg', width: 1200, height: 630, alt: 'Landon Hale' }],
+    images: [{ url: '/landon.jpg', width: 1200, height: 630, alt: 'Landon Hale' }],
   },
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
