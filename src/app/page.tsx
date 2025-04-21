@@ -36,7 +36,7 @@ export default function Home() {
       id: 'vp',
       name: 'Kyle Greaney',
       role: 'for Vice President',
-      bio: "Discord: plinkplort. Kyle has been an active member of MTSU Esports for 2 years. As the previous Vice President & Creative Director, he has a deep understanding of the club's needs, goals, and members. He is also apart of the VALORANT Wings team.",
+      bio: "Discord: plinkplort. Kyle has been an active member of MTSU Esports for 2 years. As the previous Vice President & Creative Director, he has a deep understanding of the club's needs, goals, and members. He is also a part of the VALORANT Wings team.",
       avatarUrl: '/kyle.jpg',
     },
     {
@@ -50,7 +50,7 @@ export default function Home() {
       id: 'treasurer',
       name: 'Connor McCulley',
       role: 'for Treasurer',
-      bio: "Discord: conskiii. Connor has been apart of the club & the VALORANT Wings team for 2 years. He has a deep passion for the club & is eager to help find new financial ways to help the club grow.",
+      bio: "Discord: conskiii. Connor has been a part of the club & the VALORANT Wings team for 2 years. He has a deep passion for the club & is eager to help find new financial ways to help the club grow.",
       avatarUrl: '/connor.jpg',
     }
   ];
