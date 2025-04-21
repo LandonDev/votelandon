@@ -259,9 +259,7 @@ export default function Home() {
               </div>
             </motion.a>
             <motion.a 
-              href="https://mtsu.campuslabs.com/engage/submitter/election/start/682047"
-              target="_blank"
-              rel="noopener noreferrer" 
+              href="/vote"
               className="flex-1 rounded-xl bg-gradient-to-br from-red-500 to-red-700 p-2 text-center text-sm font-medium text-white shadow-md shadow-red-500/20 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-red-500/30 sm:aspect-square sm:p-5 sm:text-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
@@ -462,9 +460,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col items-center">
             <motion.a 
-              href="https://mtsu.campuslabs.com/engage/submitter/election/start/682047"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/vote"
               className="inline-block rounded-xl bg-gradient-to-r from-red-500 to-red-700 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-red-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-red-500/40 sm:px-10 sm:py-5 sm:text-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
