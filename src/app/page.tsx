@@ -24,6 +24,12 @@ export default function Home() {
   // State for modal with proper typing
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
   
   // Handle scroll events
   useEffect(() => {
@@ -34,6 +40,54 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  
+  // Countdown timer
+  useEffect(() => {
+    const targetTimestamp = 1745812800 * 1000; // Convert Unix timestamp to milliseconds
+    
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = targetTimestamp - now;
+      
+      if (difference <= 0) {
+        setTimeRemaining({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        });
+        return;
+      }
+      
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+      
+      setTimeRemaining({
+        days,
+        hours,
+        minutes,
+        seconds
+      });
+    };
+    
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  // Function to render countdown in human-readable format
+  const formatCountdown = () => {
+    if (timeRemaining.days > 0) {
+      return `${timeRemaining.days} day${timeRemaining.days !== 1 ? 's' : ''} and ${timeRemaining.hours} hour${timeRemaining.hours !== 1 ? 's' : ''}`;
+    } else if (timeRemaining.hours > 0) {
+      return `${timeRemaining.hours} hour${timeRemaining.hours !== 1 ? 's' : ''} and ${timeRemaining.minutes} minute${timeRemaining.minutes !== 1 ? 's' : ''}`;
+    } else {
+      return `${timeRemaining.minutes} minute${timeRemaining.minutes !== 1 ? 's' : ''}`;
+    }
+  };
   
   // Team data
   const teamMembers: TeamMember[] = [
@@ -193,23 +247,9 @@ export default function Home() {
           <div className="flex w-full max-w-md flex-col gap-2 px-2 sm:flex-row sm:gap-4 sm:px-0">
             <motion.a 
               href="#plan" 
-              className="flex-1 rounded-xl bg-gradient-to-br from-indigo-600 to-indigo-800 p-2 text-center text-sm font-medium text-white shadow-md shadow-indigo-500/10 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 sm:aspect-square sm:p-5 sm:text-xl"
+              className="flex-1 rounded-xl border-2 border-indigo-500 bg-transparent p-2 text-center text-sm font-medium text-white shadow-md shadow-indigo-500/10 transition-all hover:bg-gradient-to-br hover:from-indigo-600 hover:to-indigo-800 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/20 sm:aspect-square sm:p-5 sm:text-xl"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              animate={{
-                boxShadow: [
-                  "0px 0px 0px rgba(99, 102, 241, 0.2)",
-                  "0px 0px 15px rgba(99, 102, 241, 0.4)",
-                  "0px 0px 0px rgba(99, 102, 241, 0.2)"
-                ]
-              }}
-              transition={{
-                boxShadow: {
-                  repeat: Infinity,
-                  duration: 2,
-                  repeatDelay: 4
-                }
-              }}
             >
               <div className="flex h-full flex-col items-center justify-center">
                 <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -218,27 +258,25 @@ export default function Home() {
                 See the Plan
               </div>
             </motion.a>
-            <motion.button 
-              disabled
-              className="flex-1 cursor-not-allowed rounded-xl bg-gradient-to-br from-gray-700/50 to-gray-800/50 p-2 text-center text-sm font-medium text-gray-400 backdrop-blur-sm shadow-inner sm:aspect-square sm:p-5 sm:text-xl"
+            <motion.a 
+              href="https://mtsu.campuslabs.com/engage/submitter/election/start/682047"
+              target="_blank"
+              rel="noopener noreferrer" 
+              className="flex-1 rounded-xl bg-gradient-to-br from-red-500 to-red-700 p-2 text-center text-sm font-medium text-white shadow-md shadow-red-500/20 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-red-500/30 sm:aspect-square sm:p-5 sm:text-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
               animate={{
-                opacity: [0.8, 0.9, 0.8],
                 boxShadow: [
-                  "inset 0px 0px 0px rgba(75, 85, 99, 0.2)", 
-                  "inset 0px 0px 15px rgba(75, 85, 99, 0.4)", 
-                  "inset 0px 0px 0px rgba(75, 85, 99, 0.2)"
+                  "0px 0px 0px rgba(239, 68, 68, 0.3)",
+                  "0px 0px 20px rgba(239, 68, 68, 0.5)",
+                  "0px 0px 0px rgba(239, 68, 68, 0.3)"
                 ]
               }}
               transition={{
-                opacity: {
-                  repeat: Infinity,
-                  duration: 2
-                },
                 boxShadow: {
                   repeat: Infinity,
-                  duration: 2,
-                  delay: 2,
-                  repeatDelay: 4
+                  duration: 1.5,
+                  repeatDelay: 0
                 }
               }}
             >
@@ -246,33 +284,20 @@ export default function Home() {
                 <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
-                Vote Now
-                <span className="mt-0.5 text-[10px] sm:mt-1 sm:text-xs">Voting opens Monday</span>
+                <span className="font-bold">Vote Now!</span>
+                <span className="mt-0.5 text-[10px] sm:mt-1 sm:text-xs">
+                  Closes in: {formatCountdown()}
+                </span>
               </div>
-            </motion.button>
+            </motion.a>
             <motion.div
               className="flex-1"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              animate={{
-                boxShadow: [
-                  "0px 0px 0px rgba(168, 85, 247, 0.2)", 
-                  "0px 0px 15px rgba(168, 85, 247, 0.4)", 
-                  "0px 0px 0px rgba(168, 85, 247, 0.2)"
-                ]
-              }}
-              transition={{
-                boxShadow: {
-                  repeat: Infinity,
-                  duration: 2,
-                  delay: 4,
-                  repeatDelay: 4
-                }
-              }}
             >
               <Link
                 href="/about"
-                className="flex h-full w-full rounded-xl bg-gradient-to-br from-purple-600 to-purple-800 p-2 text-center text-sm font-medium text-white shadow-md shadow-purple-500/10 sm:aspect-square sm:p-5 sm:text-xl"
+                className="flex h-full w-full rounded-xl border-2 border-purple-500 bg-transparent p-2 text-center text-sm font-medium text-white shadow-md shadow-purple-500/10 transition-all hover:bg-gradient-to-br hover:from-purple-600 hover:to-purple-800 hover:-translate-y-1 hover:shadow-lg hover:shadow-purple-500/20 sm:aspect-square sm:p-5 sm:text-xl"
               >
                 <div className="flex h-full w-full flex-col items-center justify-center">
                   <svg className="mb-1 h-5 w-5 sm:h-10 sm:w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -435,13 +460,35 @@ export default function Home() {
           <p className="mx-auto mb-6 max-w-2xl text-gray-300 sm:mb-8">
             We're building the future of MTSU Esports together. Get involved and help us create the gaming community you want to see.
           </p>
-          <button 
-            disabled
-            className="inline-block cursor-not-allowed rounded-xl bg-gradient-to-r from-indigo-600/60 to-indigo-700/60 px-6 py-3 text-base font-medium text-gray-300 shadow-md sm:px-8 sm:py-4 sm:text-lg"
-          >
-            Vote Now
-            <span className="block mt-0.5 text-xs sm:mt-1 sm:text-sm">Voting opens Monday</span>
-          </button>
+          <div className="flex flex-col items-center">
+            <motion.a 
+              href="https://mtsu.campuslabs.com/engage/submitter/election/start/682047"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-xl bg-gradient-to-r from-red-500 to-red-700 px-8 py-4 text-lg font-bold text-white shadow-lg shadow-red-500/30 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-red-500/40 sm:px-10 sm:py-5 sm:text-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              animate={{
+                boxShadow: [
+                  "0px 0px 0px rgba(239, 68, 68, 0.3)",
+                  "0px 0px 25px rgba(239, 68, 68, 0.5)",
+                  "0px 0px 0px rgba(239, 68, 68, 0.3)"
+                ]
+              }}
+              transition={{
+                boxShadow: {
+                  repeat: Infinity,
+                  duration: 2,
+                  repeatDelay: 0
+                }
+              }}
+            >
+              VOTE NOW
+            </motion.a>
+            <div className="mt-2 text-sm font-medium text-red-300">
+              <span>Voting closes in: {formatCountdown()}</span>
+            </div>
+          </div>
         </div>
       </section>
 
