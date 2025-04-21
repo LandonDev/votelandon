@@ -13,6 +13,11 @@ type TeamMember = {
   role: string;
   bio: string;
   avatarUrl: string;
+  discord: string;
+  major?: string;     // Optional fields for "get to know them" info
+  hometown?: string;
+  favoriteGame?: string;
+  funFact?: string;
 };
 
 export default function Home() {
@@ -36,22 +41,37 @@ export default function Home() {
       id: 'vp',
       name: 'Kyle Greaney',
       role: 'for Vice President',
-      bio: "Discord: plinkplort. Kyle has been an active member of MTSU Esports for 2 years. As the previous Vice President & Creative Director, he has a deep understanding of the club's needs, goals, and members. He is also apart of the VALORANT Wings team.",
+      bio: "Kyle has been an active member of MTSU Esports for 2 years and previously served as Vice President & Creative Director. His familiarity with the club's structure and operations will help ensure a smooth transition in leadership. As a member of the VALORANT Wings team, Kyle will strengthen connections between the competitive teams and leadership.",
       avatarUrl: '/kyle.jpg',
+      discord: 'plinkplort',
+      major: "Film & Video Production",
+      hometown: "Memphis, TN",
+      favoriteGame: "Call of Duty: Black Ops 2",
+      funFact: "Kyle was instrumental in the production of a Netflix Movie premiere."
     },
     {
       id: 'secretary',
       name: 'Sean Williams',
       role: 'for Secretary',
-      bio: "Discord: promosw. Sean is the current Secretary of the club. He has been a member for 2 years and has proven his dedication to the organization. Sean competes for the Halo: Infinite team and is one of the top players in the country.",
+      bio: "Sean currently serves as Secretary of MTSU Esports and has been an active member for 2 years. His organizational skills will help improve club documentation and communication. With Tier 2 professional experiene and one of the top ranked Halo: Infinite players in the world, Sean brings valuable perspective on competitive gaming that will help the club better support its teams.",
       avatarUrl: '/sean.jpg',
+      discord: 'promosw',
+      major: "Communication",
+      hometown: "Chattanooga, TN",
+      favoriteGame: "Halo: Infinite",
+      funFact: "Sean is a demon on the pickleball court."
     },
     {
       id: 'treasurer',
       name: 'Connor McCulley',
       role: 'for Treasurer',
-      bio: "Discord: conskiii. Connor has been apart of the club & the VALORANT Wings team for 2 years. He has a deep passion for the club & is eager to help find new financial ways to help the club grow.",
+      bio: "Connor has been with MTSU Esports and the VALORANT Wings team for 2 years. His commitment to the club's growth will show through his focus on finding practical financial solutions. Connor will help manage the club's budget transparently and develop funding strategies that support both competitive and casual members.",
       avatarUrl: '/connor.jpg',
+      discord: 'conskiii',
+      major: "Business Administration",
+      hometown: "Memphis, TN",
+      favoriteGame: "VALORANT",
+      funFact: "Connor has been on the VALORANT Wings team the longest."
     }
   ];
 
@@ -63,6 +83,12 @@ export default function Home() {
   // Close modal
   const closeModal = () => {
     setSelectedMember(null);
+  };
+
+  // Open Discord in new tab
+  const contactOnDiscord = (discordUsername: string, event: React.MouseEvent) => {
+    event.stopPropagation();
+    window.open(`https://discord.com/users/${discordUsername}`, '_blank');
   };
 
   return (
@@ -132,23 +158,33 @@ export default function Home() {
           </div>
           
           {/* Team members in small display - fixed layout for mobile */}
-          <div className="mb-6 flex w-full justify-center gap-1 sm:mb-10 sm:gap-3">
+          <div className="mb-6 flex w-full flex-wrap justify-center gap-2 sm:mb-10 sm:gap-4">
             {teamMembers.map((member) => (
               <div 
                 key={member.id}
-                className="flex w-[32%] cursor-pointer flex-col items-center overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-2 text-center backdrop-blur-md transition-all hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/10 sm:p-3 sm:w-[30%]"
+                className="group relative w-[32%] cursor-pointer overflow-visible rounded-xl bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-3 text-center backdrop-blur-md transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-indigo-500/10 sm:w-[30%]"
                 onClick={() => openModal(member)}
               >
-                <div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-indigo-500/30 sm:h-20 sm:w-20">
-                  <Image
-                    src={member.avatarUrl}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                  />
+                {/* Simple tooltip that appears on hover */}
+                <div 
+                  className="invisible absolute left-1/2 -top-16 z-50 w-max -translate-x-1/2 transform rounded-md bg-indigo-900 px-4 py-2 text-white opacity-0 transition-all duration-300 before:absolute before:left-1/2 before:top-[100%] before:-translate-x-1/2 before:border-8 before:border-transparent before:border-t-indigo-900 lg:group-hover:visible lg:group-hover:opacity-100"
+                >
+                  Click to read more about {member.name.split(' ')[0]}
                 </div>
-                <p className="mt-1 text-xs font-bold text-white sm:text-sm">{member.name}</p>
-                <p className="text-[10px] text-indigo-300 sm:text-xs">{member.role}</p>
+                
+                {/* Card content */}
+                <div className="flex w-full flex-col items-center justify-center">
+                  <div className="relative h-14 w-14 overflow-hidden rounded-full border-2 border-indigo-500/30 sm:h-16 sm:w-16">
+                    <Image
+                      src={member.avatarUrl}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="mt-1 text-xs font-bold text-white sm:text-sm lg:text-lg">{member.name}</p>
+                  <p className="text-[10px] text-indigo-300 sm:text-xs lg:text-base">{member.role}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -423,7 +459,7 @@ export default function Home() {
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
-              className="relative w-full max-w-md rounded-xl bg-gradient-to-br from-gray-900 to-indigo-900/90 p-6 shadow-xl"
+              className="relative w-full max-w-md rounded-xl bg-gradient-to-br from-gray-900 to-indigo-900/90 p-6 shadow-xl overflow-y-auto max-h-[90vh]"
               onClick={(e) => e.stopPropagation()}
             >
               <button 
@@ -450,7 +486,41 @@ export default function Home() {
               </div>
               
               <div className="mt-4">
+                <h4 className="mb-1 text-base font-semibold text-white">Biography</h4>
                 <p className="text-gray-300">{selectedMember.bio}</p>
+              </div>
+              
+              {/* Get to know them section */}
+              <div className="mt-5 border-t border-gray-700/50 pt-4">
+                <h4 className="mb-3 text-base font-semibold text-white">Get to Know {selectedMember.name.split(' ')[0]}</h4>
+                <div className="space-y-2">
+                  <div className="flex">
+                    <span className="w-32 flex-shrink-0 font-medium text-indigo-300">Major:</span>
+                    <span className="text-gray-300">{selectedMember.major || "[Not specified]"}</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-32 flex-shrink-0 font-medium text-indigo-300">Hometown:</span>
+                    <span className="text-gray-300">{selectedMember.hometown || "[Not specified]"}</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-32 flex-shrink-0 font-medium text-indigo-300">Favorite Game:</span>
+                    <span className="text-gray-300">{selectedMember.favoriteGame || "[Not specified]"}</span>
+                  </div>
+                  <div className="flex">
+                    <span className="w-32 flex-shrink-0 font-medium text-indigo-300">Fun Fact:</span>
+                    <span className="text-gray-300">{selectedMember.funFact || "[Not specified]"}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-4 border-t border-gray-700/50 pt-4">
+                <p className="mb-2 text-sm font-semibold text-indigo-300">Contact Information:</p>
+                <div className="flex items-center gap-2">
+                  <svg className="h-4 w-4 text-indigo-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.1.1 0 0 0-.105.062c-.29.515-.551 1.185-.753 1.713-2.271-.345-4.54-.345-6.75 0a17 17 0 0 0-.772-1.715.1.1 0 0 0-.105-.062c-1.714.29-3.354.801-4.884 1.491a.102.102 0 0 0-.047.045C.535 9.1-.32 13.588.099 18.012c.004.061.042.116.098.143 1.604 1.177 3.157 1.891 4.679 2.363a.102.102 0 0 0 .11-.039c.601-.82 1.137-1.685 1.596-2.593a.1.1 0 0 0-.054-.139c-.511-.195-.997-.413-1.464-.652a.1.1 0 0 1-.01-.165c.098-.076.197-.153.29-.232a.1.1 0 0 1 .105-.014c5.313 2.435 11.061 2.435 16.328 0a.1.1 0 0 1 .106.014c.093.079.192.156.29.232a.1.1 0 0 1-.01.165c-.467.239-.953.457-1.464.652a.1.1 0 0 0-.054.139c.46.908.995 1.773 1.597 2.593a.102.102 0 0 0 .11.039c1.522-.472 3.075-1.186 4.679-2.363a.102.102 0 0 0 .098-.143c.499-5.165-.838-9.62-3.551-13.473a.08.08 0 0 0-.047-.046ZM8.02 15.278c-.921 0-1.684-.859-1.684-1.913 0-1.054.754-1.913 1.684-1.913.941 0 1.705.868 1.684 1.913 0 1.054-.753 1.913-1.684 1.913Zm6.22 0c-.92 0-1.684-.859-1.684-1.913 0-1.054.754-1.913 1.684-1.913.941 0 1.705.868 1.684 1.913 0 1.054-.743 1.913-1.684 1.913Z"/>
+                  </svg>
+                  <span className="text-gray-300">Discord: {selectedMember.discord}</span>
+                </div>
               </div>
               
               <div className="mt-6 text-center text-sm text-gray-500">
